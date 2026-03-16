@@ -7,6 +7,8 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Order;
+use App\Models\Cart;
 
 class User extends Authenticatable
 {
@@ -46,4 +48,37 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the orders for the user.
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
+     * Get the carts for the user.
+     */
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin'; // Adjust this based on your user role implementation
+    }
+
+    public function isCustomer()
+    {
+        return $this->role === 'customer'; // Adjust this based on your user role implementation
+    }
+
+    public function hasRole($role)
+    {
+        return $this->role === $role;
+    }
+     
+  
 }

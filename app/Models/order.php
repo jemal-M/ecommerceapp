@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class order extends Model
+class Order extends Model
 {
     protected $fillable = [
         'user_id',
@@ -13,13 +13,21 @@ class order extends Model
         'status',
         'payment_method',
         'phone',
-        
     ];
-    public function user(){
+
+    /**
+     * Get the user that owns the order.
+     */
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function items(){
+    /**
+     * Get the order items for the order.
+     */
+    public function items()
+    {
         return $this->hasMany(OrderItem::class);
     }
 }
